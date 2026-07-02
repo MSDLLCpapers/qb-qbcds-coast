@@ -1,0 +1,39 @@
+# Top-level dependencies for the COAST package.
+# Transitive dependencies are resolved by pip.
+
+# Core scientific stack
+numpy==1.26.3
+pandas==2.3.1
+scipy==1.13.1
+networkx==3.2
+scikit-learn==1.5.0
+statsmodels==0.14.1
+
+# Plotting
+matplotlib==3.9.4
+seaborn==0.13.2
+
+# Causal inference / discovery
+dowhy==0.12
+gcastle==1.0.4
+
+# Pathway / enrichment analysis
+gprofiler-official==1.0.0
+gseapy==1.1.8
+
+# Java bridge (for py-tetrad)
+JPype1==1.4.1
+# Note: rpy2 (Python <-> R bridge) is GPLv2+ and is intentionally NOT listed here.
+# It is required for the feature selection step and may be optional.
+# Users who need that step can install it with:
+#     pip install rpy2==3.6.1
+# See LICENSES_THIRD_PARTY for details.
+
+# Utilities
+joblib==1.3.2
+tqdm==4.66.1
+psutil==5.9.8
+
+# Notebook environment
+jupyterlab==4.5.9
+ipykernel==6.29.5

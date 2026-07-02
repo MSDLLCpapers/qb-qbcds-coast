@@ -1,0 +1,181 @@
+COAST uses third-party libraries which may be distributed under different
+licenses. We have attempted to list all of these third-party libraries and
+their licenses below (the most up-to-date information can be found by
+inspecting the metadata of each installed package, see NOTE at the bottom
+of this file).
+
+You must agree to the terms of these licenses, in addition to the COAST
+source code license (Apache License, Version 2.0; see ./LICENSE), in order
+to use this software.
+
+Where a dependency is offered under multiple licenses, COAST is used under
+the most permissive option (e.g. MIT is preferred over MPL-2.0, BSD is
+preferred over GPL).
+
+--------------------------------------------------
+Third-party Python libraries listed by License type
+[Format: Name (PyPI / conda package) - URL]
+--------------------------------------------------
+
+Apache License, Version 2.0 (https://opensource.org/licenses/Apache-2.0)
+  * gCastle (gcastle) - https://github.com/huawei-noah/trustworthyAI/tree/master/gcastle
+  * JPype1 (JPype1) - https://github.com/jpype-project/jpype
+
+BSD 3-Clause License (https://opensource.org/licenses/BSD-3-Clause)
+  * NumPy (numpy) - https://numpy.org/
+  * pandas (pandas) - https://pandas.pydata.org/
+  * SciPy (scipy) - https://scipy.org/
+  * NetworkX (networkx) - https://networkx.org/
+  * scikit-learn (scikit-learn) - https://scikit-learn.org/
+  * statsmodels (statsmodels) - https://www.statsmodels.org/
+  * seaborn (seaborn) - https://seaborn.pydata.org/
+  * joblib (joblib) - https://joblib.readthedocs.io/
+  * psutil (psutil) - https://github.com/giampaolo/psutil
+  * JupyterLab (jupyterlab) - https://jupyter.org/
+  * ipykernel (ipykernel) - https://github.com/ipython/ipykernel
+
+BSD 2-Clause License (https://opensource.org/licenses/BSD-2-Clause)
+  * g:Profiler Python client (gprofiler-official) - https://biit.cs.ut.ee/gprofiler/
+
+MIT License (https://opensource.org/licenses/MIT)
+  * DoWhy (dowhy) - https://github.com/py-why/dowhy
+  * GSEApy (gseapy) - https://github.com/zqfang/GSEApy
+  * tqdm (tqdm) - https://github.com/tqdm/tqdm
+      [tqdm is dual-licensed under MIT and MPL-2.0; used here under MIT]
+
+Matplotlib License, BSD-compatible (https://matplotlib.org/stable/users/project/license.html)
+  * Matplotlib (matplotlib) - https://matplotlib.org/
+
+Python Software Foundation License (https://docs.python.org/3/license.html)
+  * Python (python) - https://www.python.org/
+
+--------------------------------------------------
+Optional Python libraries (NOT installed by default; users opt in)
+[Format: Name (PyPI) - URL]
+--------------------------------------------------
+
+GNU General Public License v2 or later (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+  * rpy2 (rpy2) - https://rpy2.github.io/
+      [rpy2 is GPLv2+ and links Python against GPL code at runtime.
+       It is required ONLY for the optional R bridge used in the
+       chen-scRNA-seq DE preprocessing step. To keep the default COAST
+       installation free of copyleft dependencies, rpy2 is NOT included
+       in the default requirements.txt; users who need this step should
+       install it separately, e.g.:
+           pip install rpy2==3.6.1
+       Alternatively, the preprocessing R script can be invoked as a
+       separate process (Rscript ...) without rpy2.]
+
+--------------------------------------------------
+Third-party non-Python tools (installed via conda)
+[Format: Name - URL]
+--------------------------------------------------
+
+Eclipse Public License v1.0 (https://opensource.org/licenses/EPL-1.0)
+  * Graphviz (graphviz) - https://graphviz.org/license/
+
+--------------------------------------------------
+External runtime dependencies (loaded by COAST but not bundled)
+[Format: Name - URL]
+--------------------------------------------------
+
+These tools are NOT installed by COAST's requirements.txt or environment.yml.
+Users must install them separately (typically via the system package manager
+or a module-loading environment such as `module load java/...` and
+`module load R/...`). Their licenses apply to the user's local installation,
+not to redistribution of COAST itself.
+
+GNU General Public License v2, with Classpath Exception
+(https://openjdk.org/legal/gplv2+ce.html)
+  * Java Runtime / OpenJDK (JDK 17+) - https://openjdk.org/
+      [Required by JPype1 to load the Tetrad jar. The Classpath Exception
+       permits linking COAST (Apache 2.0) with the JDK.]
+
+GNU General Public License v2 or later (https://www.r-project.org/Licenses/)
+  * R interpreter - https://www.r-project.org/
+      [Required for the feature selection step (GENIE3-based gene-network
+       inference), invoked via rpy2.]
+
+--------------------------------------------------
+External R packages (installed by the user inside R; loaded via rpy2)
+[Format: Name (CRAN / Bioconductor) - URL]
+--------------------------------------------------
+
+These R packages are required at runtime by COAST's feature-selection
+module (coast/feature_selection.py), which calls into R via rpy2 to run
+GENIE3 gene-network inference. They are NOT bundled with COAST; users
+install them themselves inside R, see GENIE3_via_rpy2.txt for the full setup procedure.
+
+GNU General Public License v2 or later (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+  * GENIE3 (Bioconductor) - https://bioconductor.org/packages/GENIE3/
+      [Random-forest-based gene regulatory network inference. GPL-2 or
+       later, per its Bioconductor metadata.]
+  * doRNG (CRAN) - https://cran.r-project.org/package=doRNG
+      [Reproducible parallel random-number generation. GPL-2 or later.]
+
+GNU General Public License v2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+  * doParallel (CRAN) - https://cran.r-project.org/package=doParallel
+      [Parallel backend for foreach. GPL-2.]
+
+These packages are GPL-family. Because COAST does not bundle them and
+they are loaded from the user's own R installation only when the user
+opts into the feature selection step (which itself requires the
+optional rpy2 extra), their GPL obligations apply to the user's local
+environment, not to redistribution of COAST.
+
+--------------------------------------------------
+External Java component (py-tetrad and the Tetrad jar)
+[Format: Name (artifact) - URL]
+--------------------------------------------------
+
+COAST invokes Tetrad's causal-discovery algorithms through the py-tetrad
+JPype bridge. py-tetrad and tetrad-current.jar are NOT distributed with
+COAST. Users must install py-tetrad themselves from
+https://github.com/cmu-phil/py-tetrad. They are listed here for
+transparency about the full runtime dependency chain that a user will
+have on their own machine after following COAST's install instructions.
+
+MIT License (https://opensource.org/licenses/MIT)
+  * py-tetrad (cmu-phil/py-tetrad) - https://github.com/cmu-phil/py-tetrad
+      [The Python wrapper code itself.]
+
+GNU General Public License v2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+  * Tetrad (edu.cmu.tetrad, distributed inside py-tetrad as
+        tetrad-current.jar) - https://github.com/cmu-phil/tetrad
+      [The Java causal-discovery library invoked through py-tetrad.
+       Tetrad is GPLv2. COAST does NOT bundle this jar; it is loaded
+       from the user's own py-tetrad installation at runtime, so the
+       GPLv2 obligations apply to the user's local py-tetrad checkout,
+       not to redistribution of COAST itself.]
+
+The Tetrad jar embeds the following third-party Java libraries; their
+licenses are reproduced inside the jar under META-INF/ and license/:
+
+  Apache License, Version 2.0
+    * FastDoubleParser - https://github.com/wrandelshofer/FastDoubleParser
+    * Various Apache Commons / utility libraries (see jar META-INF)
+
+  BSD-style License
+    * BigInt arbitrary-precision integers (bigint-LICENSE)
+    * W3C DOM / SAX XML parsers (license/LICENSE.dom-*.txt,
+      license/LICENSE.sax.txt)
+
+  Eclipse Public License v1.0 / Common Public License v1.0
+    * JUnit (LICENSE-junit.txt) - https://junit.org/
+
+----
+NOTE: Although we try to keep this list current, transitive dependencies
+pulled in by pip/conda may add additional packages. The latest information
+about installed third-party libraries and their licenses can be obtained
+with:
+
+  pip install pip-licenses
+  pip-licenses --format=plain --with-urls
+
+
+For the Java side, the licenses bundled inside tetrad-current.jar can be
+listed with:
+
+  unzip -l /path/to/py-tetrad/pytetrad/resources/tetrad-current.jar | \
+      grep -iE 'license|notice'
+----

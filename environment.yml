@@ -1,0 +1,11 @@
+name: causal
+channels:
+  - https://conda.anaconda.org/pytorch/
+  - https://conda.anaconda.org/conda-forge/
+  - https://conda.anaconda.org/bioconda/
+dependencies:
+  - python=3.9
+  - graphviz
+  - pip
+  - pip:
+    - -r requirements.txt

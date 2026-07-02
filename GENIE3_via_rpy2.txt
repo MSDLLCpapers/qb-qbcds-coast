@@ -1,0 +1,87 @@
+####################################################
+# 	How to bridge R and Python in HPC              #
+####################################################
+
+To use rpy2 on a High-Performance Computing (HPC) system where Python and R are already installed, follow these steps to set up your environment:
+
+
+1. Load the appropriate modules
+Check available modules:
+
+Run command	
+module avail -- (in Shell)
+
+Then load Python and R:
+module load python/3.x  (3.9+)
+module load R/4.x	(4.3.1)
+
+
+
+2. Create a Python virtual environment (Shell)
+
+python3 -m venv rpy2_env
+source rpy2_env/bin/activate
+
+
+3. Install rpy2
+Make sure pip is up to date:
+pip install --upgrade pip
+
+Then install rpy2: (Shell)
+pip install rpy2
+
+Check if rpy2 is installed: (Shell)
+pip show rpy2
+
+
+rpy2 must be compiled against the same R version available on the system. If you get errors, check that R is in your PATH and that R_HOME is correctly set.
+
+4. Verify R is accessible (Shell)
+
+which R
+R --version
+
+5. Set R_HOME environment variable (Shell)
+If needed, set the R_HOME environment variable:
+export R_HOME=$(R RHOME)
+
+
+
+Make sure it's a version supported by the version of rpy2 you're using. For example, rpy2 >= 3.5 typically supports Python 3.6–3.11.
+
+
+6. Check R shared library (Shell) -- Make sure R was built with shared library support (--enable-R-shlib). Run:
+
+R CMD config --ldflags
+
+If it returns something like -L/usr/lib/R/lib -lR, you're good. If it's empty or missing -lR, rpy2 won't work.
+
+
+
+
+Install GENIE3 in R
+
+To install and use GENIE3 from R within Python using rpy2, follow these steps:
+
+First, open an R session (or use rpy2 to run this from Python) and install the GENIE3 package from Bioconductor:
+
+In your environment open R:
+Then run the following command:
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("GENIE3")
+
+
+Once we have R opened we install the following packages which required by GENIE3:
+install.packages('doRNG')
+install.packages('doParallel')
+
+
+
+
+Once you setup your environment you can call it by using the following command in shell:
+source ~/rpy2_env/bin/activate
+
+
