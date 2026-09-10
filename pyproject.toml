@@ -51,7 +51,7 @@ r = ["rpy2==3.6.1"]
 
 # Notebook environment for running the example analyses under results/.
 notebooks = [
-    "jupyterlab==4.5.9",
+    "jupyterlab==4.5.10",
     "ipykernel==6.29.5",
 ]
 
