@@ -31,7 +31,7 @@ JPype1==1.4.1
 
 # Utilities
 joblib==1.3.2
-tqdm==4.66.1
+tqdm==4.66.3
 psutil==5.9.8
 
 # Notebook environment
